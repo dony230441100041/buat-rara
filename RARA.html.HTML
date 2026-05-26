@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Surat Untuk Rara 💌</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,sans-serif;
+}
+
+body{
+    overflow:hidden;
+    min-height:100vh;
+    background:linear-gradient(to bottom,#071c3d,#102b57);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    color:white;
+}
+
+/* ================= CIRCLE ================= */
+
+.circle{
+    position:absolute;
+    border-radius:50%;
+    background:rgba(255, 182, 193, 0.22);
+    box-shadow:
+        0 0 35px rgba(255, 182, 193, 0.25),
+        inset 0 0 20px rgba(255,255,255,0.15);
+
+    backdrop-filter: blur(3px);
+
+    animation: floatMove 9s ease-in-out infinite;
+}
+
+.circle:nth-child(1){ background:rgba(255,182,193,0.25); }
+.circle:nth-child(2){ background:rgba(173,216,230,0.22); }
+.circle:nth-child(3){ background:rgba(221,160,221,0.22); }
+.circle:nth-child(4){ background:rgba(144,238,144,0.18); }
+
+@keyframes floatMove{
+    0%{transform:translate(0,0) scale(1); opacity:0.6;}
+    25%{transform:translate(25px,-50px) scale(1.1); opacity:0.9;}
+    50%{transform:translate(-20px,-90px) scale(1.05); opacity:1;}
+    75%{transform:translate(-30px,-40px) scale(1.15); opacity:0.8;}
+    100%{transform:translate(0,0) scale(1); opacity:0.6;}
+}
+
+/* ================= CONTAINER ================= */
+
+.container{
+    text-align:center;
+    position:relative;
+    z-index:10;
+}
+
+/* ================= ENVELOPE ================= */
+
+.envelope{
+    position:relative;
+    width:260px;
+    height:180px;
+    margin:auto;
+}
+
+.envelope-body{
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:#ffb6c1;
+    border-radius:12px;
+    z-index:2;
+}
+
+.envelope-body::before{
+    content:"";
+    position:absolute;
+    border-left:130px solid #ff9fba;
+    border-top:90px solid transparent;
+    border-bottom:90px solid transparent;
+    left:0;
+}
+
+.envelope-body::after{
+    content:"";
+    position:absolute;
+    border-right:130px solid #ffc2d1;
+    border-top:90px solid transparent;
+    border-bottom:90px solid transparent;
+    right:0;
+}
+
+.envelope-top{
+    position:absolute;
+    border-left:130px solid transparent;
+    border-right:130px solid transparent;
+    border-top:90px solid #ff8fab;
+    top:0;
+    left:0;
+    z-index:4;
+}
+
+/* ================= PAPER ================= */
+
+.paper{
+    position:absolute;
+    width:210px;
+    height:140px;
+    background:white;
+    left:25px;
+    top:90px;
+    border-radius:12px;
+    z-index:1;
+
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    flex-direction:column;
+
+    color:#ff4d88;
+    font-weight:bold;
+    font-size:24px;
+
+    transition:1.8s ease;
+}
+
+.paper.show{ top:-85px; }
+
+.paper-text{
+    opacity:0;
+    transition:1s;
+    transform:translateY(10px);
+}
+
+.paper-text.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* ================= BUTTON ================= */
+
+.btn{
+    margin-top:35px;
+    background:#ff7eb3;
+    border:none;
+    padding:14px 32px;
+    border-radius:30px;
+    color:white;
+    font-size:20px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+/* ================= LETTER (FIX SCROLL) ================= */
+
+.letter{
+    width:340px;
+    max-width:90vw;
+    max-height:60vh;
+    overflow-y:auto;
+    -webkit-overflow-scrolling: touch;
+
+    background:rgba(255,255,255,0.1);
+    border:2px solid rgba(255,255,255,0.4);
+    border-radius:25px;
+    padding:20px;
+    margin-top:25px;
+    backdrop-filter:blur(8px);
+
+    display:none;
+}
+
+.typing{
+    font-size:18px;
+    line-height:1.8;
+    white-space:pre-line;
+    text-align:left;
+    padding-bottom:20px;
+}
+
+/* ================= HEART ================= */
+
+.heart{
+    position:absolute;
+    top:-20px;
+    color:pink;
+    font-size:22px;
+    animation:fall linear forwards;
+}
+
+@keyframes fall{
+    to{
+        transform:translateY(110vh);
+        opacity:0;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- CIRCLE -->
+<div class="circle" style="width:140px;height:140px;top:10%;left:10%; animation-delay:0s;"></div>
+<div class="circle" style="width:90px;height:90px;top:20%;right:15%; animation-delay:1s;"></div>
+<div class="circle" style="width:150px;height:150px;bottom:10%;left:20%; animation-delay:2s;"></div>
+<div class="circle" style="width:70px;height:70px;bottom:25%;right:10%; animation-delay:3s;"></div>
+
+<div class="container">
+
+    <div class="envelope">
+
+        <div class="paper" id="paper">
+            <div id="paperText" class="paper-text">
+                Halo Rara 💗<br>
+                💌
+            </div>
+        </div>
+
+        <div class="envelope-body"></div>
+        <div class="envelope-top"></div>
+
+    </div>
+
+    <button class="btn" onclick="openLetter()">Buka Surat 💗</button>
+
+    <div class="letter" id="letter">
+        <div class="typing" id="typing"></div>
+    </div>
+
+</div>
+
+<script>
+
+const pesan = `Semangat menjalani hari ini, ya.
+
+Aku tahu belakangan mungkin ada banyak hal yang dipikirkan, banyak hal yang harus dijalani, dan tidak semuanya berjalan sesuai harapan. Kadang capeknya bukan cuma fisik, tapi juga isi kepala yang tidak benar-benar bisa istirahat.
+
+Kalau hari ini terasa berat, jalani saja pelan-pelan. Tidak semua hal harus selesai sekaligus, dan kamu tidak perlu memaksa diri untuk selalu terlihat baik-baik saja. Kadang bertahan sampai hari berakhir pun sudah lebih dari cukup.
+
+Aku harap di tengah semua kesibukan dan tekanan yang datang, kamu tetap bisa menemukan sedikit tenang untuk diri sendiri. Entah dari hal kecil, dari orang-orang terdekat, atau dari momen sederhana yang bisa membuatmu merasa lebih ringan.
+
+Semoga hari ini berjalan lebih ringan dari biasanya.  
+Semoga urusanmu dipermudah, hatimu lebih tenang, dan hal-hal baik datang di waktu yang tepat.  
+Dan semoga, di tengah semua kesibukan dan tekanan, kamu tetap menemukan alasan kecil untuk tersenyum hari ini.`;
+
+let sudahDibuka = false;
+
+function openLetter(){
+
+    if(sudahDibuka) return;
+    sudahDibuka = true;
+
+    const paper = document.getElementById("paper");
+    const letter = document.getElementById("letter");
+    const typing = document.getElementById("typing");
+    const paperText = document.getElementById("paperText");
+
+    paper.classList.add("show");
+
+    setTimeout(()=>{
+        paperText.classList.add("show");
+    },800);
+
+    setTimeout(()=>{
+
+        letter.style.display = "block";
+
+        let i = 0;
+
+        function ketik(){
+            if(i < pesan.length){
+                typing.innerHTML += pesan[i];
+                i++;
+
+                // AUTO SCROLL
+                letter.scrollTop = letter.scrollHeight;
+
+                setTimeout(ketik,30);
+            }
+        }
+
+        ketik();
+
+    },2000);
+
+    createHearts();
+}
+
+function createHearts(){
+    setInterval(()=>{
+        const heart = document.createElement("div");
+        heart.classList.add("heart");
+        heart.innerHTML = "💗";
+        heart.style.left = Math.random()*100 + "vw";
+        heart.style.animationDuration = (Math.random()*3+3)+"s";
+        document.body.appendChild(heart);
+
+        setTimeout(()=>heart.remove(),6000);
+    },300);
+}
+
+</script>
+
+</body>
+</html>
