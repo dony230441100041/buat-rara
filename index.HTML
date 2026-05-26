@@ -34,21 +34,12 @@ body{
         0 0 35px rgba(255, 182, 193, 0.25),
         inset 0 0 20px rgba(255,255,255,0.15);
 
-    backdrop-filter: blur(3px);
-
     animation: floatMove 9s ease-in-out infinite;
 }
 
-.circle:nth-child(1){ background:rgba(255,182,193,0.25); }
-.circle:nth-child(2){ background:rgba(173,216,230,0.22); }
-.circle:nth-child(3){ background:rgba(221,160,221,0.22); }
-.circle:nth-child(4){ background:rgba(144,238,144,0.18); }
-
 @keyframes floatMove{
     0%{transform:translate(0,0) scale(1); opacity:0.6;}
-    25%{transform:translate(25px,-50px) scale(1.1); opacity:0.9;}
-    50%{transform:translate(-20px,-90px) scale(1.05); opacity:1;}
-    75%{transform:translate(-30px,-40px) scale(1.15); opacity:0.8;}
+    50%{transform:translate(-30px,-80px) scale(1.1); opacity:1;}
     100%{transform:translate(0,0) scale(1); opacity:0.6;}
 }
 
@@ -125,7 +116,7 @@ body{
 
     color:#ff4d88;
     font-weight:bold;
-    font-size:24px;
+    font-size:22px;
 
     transition:1.8s ease;
 }
@@ -157,7 +148,7 @@ body{
     cursor:pointer;
 }
 
-/* ================= LETTER (FIX SCROLL) ================= */
+/* ================= LETTER ================= */
 
 .letter{
     width:340px;
@@ -184,6 +175,25 @@ body{
     padding-bottom:20px;
 }
 
+/* ================= LOVE TEXT ================= */
+
+.love-text{
+    margin-top:25px;
+    font-size:32px;
+    font-weight:bold;
+    text-align:center;
+    color:#ff4d88;
+
+    opacity:0;
+    transform:translateY(10px);
+    transition:1s ease;
+}
+
+.love-text.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
 /* ================= HEART ================= */
 
 .heart{
@@ -207,10 +217,10 @@ body{
 <body>
 
 <!-- CIRCLE -->
-<div class="circle" style="width:140px;height:140px;top:10%;left:10%; animation-delay:0s;"></div>
-<div class="circle" style="width:90px;height:90px;top:20%;right:15%; animation-delay:1s;"></div>
-<div class="circle" style="width:150px;height:150px;bottom:10%;left:20%; animation-delay:2s;"></div>
-<div class="circle" style="width:70px;height:70px;bottom:25%;right:10%; animation-delay:3s;"></div>
+<div class="circle" style="width:140px;height:140px;top:10%;left:10%;"></div>
+<div class="circle" style="width:90px;height:90px;top:20%;right:15%;"></div>
+<div class="circle" style="width:150px;height:150px;bottom:10%;left:20%;"></div>
+<div class="circle" style="width:70px;height:70px;bottom:25%;right:10%;"></div>
 
 <div class="container">
 
@@ -231,7 +241,12 @@ body{
     <button class="btn" onclick="openLetter()">Buka Surat 💗</button>
 
     <div class="letter" id="letter">
+
         <div class="typing" id="typing"></div>
+
+        <!-- LOVE TEXT -->
+        <div id="loveText" class="love-text">💗 LOVE UUU 💗</div>
+
     </div>
 
 </div>
@@ -242,13 +257,12 @@ const pesan = `Semangat menjalani hari ini, ya.
 
 Aku tahu belakangan mungkin ada banyak hal yang dipikirkan, banyak hal yang harus dijalani, dan tidak semuanya berjalan sesuai harapan. Kadang capeknya bukan cuma fisik, tapi juga isi kepala yang tidak benar-benar bisa istirahat.
 
-Kalau hari ini terasa berat, jalani saja pelan-pelan. Tidak semua hal harus selesai sekaligus, dan kamu tidak perlu memaksa diri untuk selalu terlihat baik-baik saja. Kadang bertahan sampai hari berakhir pun sudah lebih dari cukup.
+Kalau hari ini terasa berat, jalani saja pelan-pelan. Tidak semua hal harus selesai sekaligus, dan kamu tidak perlu memaksa diri untuk selalu terlihat baik-baik saja.
 
-Aku harap di tengah semua kesibukan dan tekanan yang datang, kamu tetap bisa menemukan sedikit tenang untuk diri sendiri. Entah dari hal kecil, dari orang-orang terdekat, atau dari momen sederhana yang bisa membuatmu merasa lebih ringan.
+Aku harap kamu tetap bisa menemukan sedikit tenang di tengah semua hal yang kamu jalani.
 
-Semoga hari ini berjalan lebih ringan dari biasanya.  
-Semoga urusanmu dipermudah, hatimu lebih tenang, dan hal-hal baik datang di waktu yang tepat.  
-Dan semoga, di tengah semua kesibukan dan tekanan, kamu tetap menemukan alasan kecil untuk tersenyum hari ini.`;
+Semoga hari ini lebih ringan, dan kamu tetap punya alasan kecil untuk tersenyum.`;
+
 
 let sudahDibuka = false;
 
@@ -261,6 +275,7 @@ function openLetter(){
     const letter = document.getElementById("letter");
     const typing = document.getElementById("typing");
     const paperText = document.getElementById("paperText");
+    const loveText = document.getElementById("loveText");
 
     paper.classList.add("show");
 
@@ -279,10 +294,14 @@ function openLetter(){
                 typing.innerHTML += pesan[i];
                 i++;
 
-                // AUTO SCROLL
                 letter.scrollTop = letter.scrollHeight;
 
                 setTimeout(ketik,30);
+            } else {
+                // munculkan LOVE setelah selesai
+                setTimeout(()=>{
+                    loveText.classList.add("show");
+                },500);
             }
         }
 
